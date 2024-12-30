@@ -1,0 +1,42 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"time"
+
+	rim "github.com/captainnicksilver/multithread_radix_sort/radix_in_memory"
+	rod "github.com/captainnicksilver/multithread_radix_sort/radix_on_disk"
+	"github.com/captainnicksilver/multithread_radix_sort/timer"
+)
+
+func main() {
+
+
+	var duration time.Duration
+	var allocatedMemory, totalMemory uint64
+
+	// Measure the performance of the indicated function
+	if len(os.Args) > 3 {
+		id := os.Args[1] // id of the algorithm to test
+		switch id {
+		case "RIM":
+			duration, allocatedMemory, totalMemory = timer.MeasurePerformance(rim.Radix_in_Memory)
+		case "ROD":
+			duration, allocatedMemory, totalMemory = timer.MeasurePerformance( rod.Radix_On_Disk)
+		default:
+			fmt.Println("The id provided does not match any of the coded algorithms.  Use RIM for Radix In Memory or ROD for Radix on Disk")
+			return
+		}
+	} else {
+		fmt.Println("The input line must contain the id of the algorithm and both the input and output files")
+		return
+	}
+
+	
+
+	// Print the results
+	fmt.Printf("Execution time: %v\n", duration)
+	fmt.Printf("Allocated memory during execution: %d bytes\n", allocatedMemory)
+	fmt.Printf("Total memory allocated since start: %d bytes\n", totalMemory)
+}
