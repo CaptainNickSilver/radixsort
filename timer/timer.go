@@ -6,8 +6,11 @@ import (
 	"time"
 )
 
-// measurePerformance is a utility function that measures the time and memory usage of the given function.
-func MeasurePerformance(fn func()) (time.Duration, uint64, uint64) {
+// MeasurePerformance is a utility function that measures the time and memory usage of the given function.
+// the only thing truly interesting about it is that we pass in a function and it's parameters seperately 
+// so that we can call it.  This could be generalized further if desired.
+
+func MeasurePerformance(fn func(string, string), infile string, outfile string) (time.Duration, uint64, uint64) {
 	// Record the start time
 	start := time.Now()
 
@@ -16,7 +19,7 @@ func MeasurePerformance(fn func()) (time.Duration, uint64, uint64) {
 	runtime.ReadMemStats(&memStart)
 
 	// Execute the function
-	fn()
+	fn(infile, outfile)
 
 	// Record memory stats after the function execution
 	var memEnd runtime.MemStats
@@ -31,15 +34,4 @@ func MeasurePerformance(fn func()) (time.Duration, uint64, uint64) {
 
 	return duration, allocatedMemory, totalMemory
 }
-
-// sampleFunction is a sample function to measure
-// func sampleFunction() {
-// 	// Simulate some work (e.g., allocating memory)
-// 	slice := make([]int, 1e6) // Allocate a slice of 1 million integers
-// 	for i := 0; i < len(slice); i++ {
-// 		slice[i] = i
-// 	}
-// 	// Here we could have more logic, but we'll keep it simple
-// 	_ = slice // Prevent the compiler from optimizing away the slice
-// }
 

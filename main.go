@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	rim "github.com/captainnicksilver/multithread_radix_sort/radix_in_memory"
-	rod "github.com/captainnicksilver/multithread_radix_sort/radix_on_disk"
-	"github.com/captainnicksilver/multithread_radix_sort/timer"
+	rim "github.com/captainnicksilver/radixsort/radix_in_memory"
+	rod "github.com/captainnicksilver/radixsort/radix_on_disk"
+	"github.com/captainnicksilver/radixsort/timer"
 )
 
 func main() {

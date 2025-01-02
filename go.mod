@@ -1,3 +1,3 @@
-module github.com/captainnicksilver/multithread_radix_sort
+module github.com/captainnicksilver/radixsort
 
 go 1.23.1
