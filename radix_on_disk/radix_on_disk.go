@@ -72,23 +72,15 @@ func process_num(passid int, valtosort int, outhandles []*os.File) {
 // Radix_On_Disk -- the main routine for this module -- single threaded but nothing is called into memory
 // ---------------------------
 
-func Radix_On_Disk() {
-	var inputFile, outputFile, outPath string
+func Radix_On_Disk(inputFile string, outputFile string) {
+	var  outPath string
 	var rowcount int64 = 0
 	infilelist := make([]string, 1, 10) // slice on array of input files, starting with length of 1
 	var outfilelist []string
 	var passcount int
 
-	if len(os.Args) > 3 {
-		// read the input file and output filename from the command line
-		// if the user fails to provide both, error and quit
-		infilelist[0] = os.Args[2]
-		outputFile = os.Args[3]
-		outPath = filepath.Dir(outputFile)
-	} else {
-		fmt.Println("Command line must contain the id of the algorithm, the inputfile and output file names")
-		return
-	}
+	outPath = filepath.Dir(outputFile)
+
 
 	// input and output is a little weird on the disk version.  We will read from one file
 	// on the first pass but we will read from 10 files on subsequent passes.  Since these

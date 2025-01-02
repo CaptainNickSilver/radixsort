@@ -15,19 +15,23 @@ func main() {
 
 	var duration time.Duration
 	var allocatedMemory, totalMemory uint64
+	var inputFile, outputFile string
 
 	// Measure the performance of the indicated function
 	if len(os.Args) > 3 {
 		id := os.Args[1] // id of the algorithm to test
+		inputFile = os.Args[2]
+		outputFile = os.Args[3]
 		switch id {
 		case "RIM":
-			duration, allocatedMemory, totalMemory = timer.MeasurePerformance(rim.Radix_in_Memory)
+			duration, allocatedMemory, totalMemory = timer.MeasurePerformance(rim.Radix_in_Memory, inputFile, outputFile)
 		case "ROD":
-			duration, allocatedMemory, totalMemory = timer.MeasurePerformance( rod.Radix_On_Disk)
+			duration, allocatedMemory, totalMemory = timer.MeasurePerformance( rod.Radix_On_Disk, inputFile, outputFile)
 		default:
 			fmt.Println("The id provided does not match any of the coded algorithms.  Use RIM for Radix In Memory or ROD for Radix on Disk")
 			return
 		}
+
 	} else {
 		fmt.Println("The input line must contain the id of the algorithm and both the input and output files")
 		return

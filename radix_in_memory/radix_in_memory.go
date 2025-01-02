@@ -104,19 +104,8 @@ func writeIntegers(filename string, integers []int) error {
 	return writer.Flush()
 }
 
-func Radix_in_Memory() {
+func Radix_in_Memory(inputFile string, outputFile string) {
 
-	var inputFile, outputFile string 
-	
-	if len(os.Args) > 3 {
-		// read the input file and output filename from the command line
-		// if the user fails to provide both, error and quit
-		inputFile = os.Args[2]
-		outputFile = os.Args[3]
-	} else {
-		fmt.Println("Command line must contain the id of the algorithm and both the inputfile and output file names")
-		return
-	}
 
 	// Read integers from the input file
 	integers, err := readIntegers(inputFile)
